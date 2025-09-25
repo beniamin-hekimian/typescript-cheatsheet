@@ -34,6 +34,13 @@ TypeScript is a superset of JavaScript that adds static typing and other feature
 - [Project structure](#19-project-structure)
 - [Modules](#20-modules)
 
+### 6. TypeScript for React.js
+- [Components](#21-components)
+- [Props](#22-props)
+- [State](#23-state)
+- [Events](#24-events)
+- [Hooks](#25-hooks)
+
 ## 1. Boolean
 
 Represents `true` or `false` values.
@@ -270,3 +277,71 @@ Modules help developers organize code into reusable, maintainable, and logical u
 | `export default function add() {}`        | `export function add() {}`             |
 | `import anyName from './module'`          | `import { add, subtract } from './module'` |
 | Can rename freely when importing          | Must use the exact exported name        |
+
+## 21. Components
+
+Define a simple component with a typed return value.
+
+```ts
+function Hello(): JSX.Element {
+  return <h1>Hello, TypeScript!</h1>
+}
+```
+
+## 22. Props
+
+Use an interface or type alias to define props.
+
+```ts
+type ButtonProps = {
+  label: string
+  onClick: () => void
+}
+
+function Button({ label, onClick }: ButtonProps): JSX.Element {
+  return <button onClick={onClick}>{label}</button>
+}
+```
+
+## 23. State
+
+Use generics with `useState` to strongly type state values.
+
+```ts
+function Counter(): JSX.Element {
+  const [count, setCount] = React.useState<number>(0)
+
+  return (
+    <div>
+      <p>{count}</p>
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+  )
+}
+```
+
+## 24. Events
+
+Type events with React’s built-in types.
+
+```ts
+function InputBox(): JSX.Element {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)
+  }
+
+  return <input type="text" onChange={handleChange} />
+}
+```
+
+## 25. Hooks
+
+Type custom hooks with explicit input and output.
+
+```ts
+function useToggle(initial: boolean): [boolean, () => void] {
+  const [value, setValue] = React.useState(initial)
+  const toggle = () => setValue(prev => !prev)
+  return [value, toggle]
+}
+```
