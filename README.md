@@ -5,48 +5,47 @@ TypeScript is a superset of JavaScript that adds static typing and other feature
 ## 📑 Table of Contents
 
 ### 1. Primitive Types
+
 - [Boolean](#1-boolean)
 - [Number](#2-number)
 - [String](#3-string)
 
 ### 2. Composite Types
-- [Object](#4-object)
-- [Array](#5-array)
-- [Tuple](#6-tuple)
-- [Enum](#7-enum)
 
-### 3. Custom Types
-- [Type alias](#8-type-alias)
-- [Union](#9-union)
-- [Literal](#10-literal)
-- [Any](#11-any)
-- [Unknown](#12-unknown)
+- [Array](#4-array)
+- [Tuple](#5-tuple)
+- [Object](#6-object)
 
-### 4. Functions & Special Types
-- [Function type](#13-function-type)
-- [Void](#14-void)
-- [Never](#15-never)
+### 3. Flexible Types
 
-### 5. Advanced Features
-- [Interfaces](#16-interfaces)
-- [Classes](#17-classes)
-- [Const keyword](#18-const-keyword)
-- [Project structure](#19-project-structure)
-- [Modules](#20-modules)
+- [Any](#7-any)
+- [Unknown](#8-unknown)
+- [Null](#9-null)
+
+### 4. Intermediate Types
+
+- [Function type](#10-function-type)
+- [Arrow functions](#11-arrow-functions)
+- [Enums](#12-enums)
+
+### 5. Advanced Types
+
+- [Type alias](#13-type-alias)
+- [Interfaces](#14-interfaces)
+- [Generics](#15-generics)
 
 ### 6. TypeScript for React.js
-- [Components](#21-components)
-- [Props](#22-props)
-- [State](#23-state)
-- [Events](#24-events)
-- [Hooks](#25-hooks)
+
+- [React types](#16-react-types)
+- [Best Practices](#17-best-practices)
+- [TS Project Files](#18-ts-project-files)
 
 ## 1. Boolean
 
 Represents `true` or `false` values.
 
 ```ts
-let busy: boolean = true
+let busy: boolean = true;
 ```
 
 ## 2. Number
@@ -54,7 +53,7 @@ let busy: boolean = true
 Represents numeric values. (integers, floats, etc.)
 
 ```ts
-let age: number = 21
+let age: number = 21;
 ```
 
 ## 3. String
@@ -62,10 +61,26 @@ let age: number = 21
 Represents a sequence of characters using "", '' or ``.
 
 ```ts
-let name: string = 'Ben'
+let name: string = "Ben";
 ```
 
-## 4. Object
+## 4. Array
+
+Collection of elements with the same data type.
+
+```ts
+let countries: string[] = ["America", "Asia", "Africa"];
+```
+
+## 5. Tuple
+
+Fixed-length array with defined types & positions of each element.
+
+```ts
+let contact: [number, string] = [123456789, "sami@gmail.com"];
+```
+
+## 6. Object
 
 Defines the structure of objects with properties and their types.
 
@@ -76,9 +91,9 @@ let student: {
   isLearning: boolean;
 } = {
   id: 1,
-  name: 'Bobby',
+  name: "Bobby",
   isLearning: true,
-}
+};
 ```
 
 Or you can use `object` type as well, without defining the structure of the object.
@@ -87,122 +102,105 @@ Or you can use `object` type as well, without defining the structure of the obje
 let school: object = {
   location: "America",
   students: 240,
-}
+};
 ```
 
-## 5. Array
-
-Collection of elements with the same data type.
-
-```ts
-let countries: string[] = ["America", "Asia", "Africa"]
-```
-
-## 6. Tuple
-
-Fixed-length array with defined types & positions of each element.
-
-```ts
-let contact: [number, string] = [123456789, "sami@gmail.com"]
-```
-
-## 7. Enum
-
-A set of named constants for better readability.
-
-```ts
-enum Role {
-  ADMIN = 'ADMIN',
-  READ_ONLY = 'READ_ONLY',
-}
-
-console.log(Role.ADMIN) // 'ADMIN'
-```
-
-## 8. Type alias
-
-Allows you to create a custom type (alias).
-
-```ts
-type ID = number
-let userId: ID = 123
-```
-
-## 9. Union
-
-Allows a variable to hold values of multiple types.
-
-```ts
-let value: string | number
-value = "hello"
-value = 42
-```
-
-## 10. Literal
-
-Allows you to specify exact, predefined values that a variable, parameter, or property can hold.
-
-```ts
-let statusCode: 200 | 404 | 500;
-statusCode = 200; // ✅ Valid
-statusCode = 403; // ❌ Error
-```
-
-## 11. Any
+## 7. Any
 
 Disables type checking, when you don't want a particular value to cause typechecking errors.
 
 ```ts
-let random: any = 10
-random = "hello"
-random = true
+let random: any = 10;
+random = "hello";
+random = true;
 ```
 
-## 12. Unknown
+## 8. Unknown
 
 A safer alternative to any, requiring you to perform type checking before using the value.
 
 ```ts
-let value: unknown
-value = 42
-value = "Hello"
+let value: unknown;
+value = 42;
+value = "Hello";
 
 if (typeof value === "string") {
-  console.log(value.toUpperCase())
+  console.log(value.toUpperCase());
 }
 ```
 
-## 13. Function type
+## 9. Null
+
+Represents the intentional absence of any object value.
+
+```ts
+let selectedUser: null = null;
+
+let userName: string | null = null;
+userName = "Sam";
+```
+
+## 10. Function type
 
 Defines the types of its parameters and its return value.
 
 ```ts
-function add(a: number, b: number ): number {
-  return a + b
+function add(a: number, b: number): number {
+  return a + b;
 }
 ```
 
-## 14. Void
+## 11. Arrow functions
 
-Indicates the absence of a return value from a function. (optional)
+Arrow functions provide a shorter syntax for writing functions.
 
 ```ts
-function logMessage(message: string): void {
-    console.log(message);
-}
+const multiply = (a: number, b: number): number => {
+  return a * b;
+};
 ```
 
-## 15. Never
+## 12. Enums
 
-Represents values that never occur. Function or code path is guaranteed to never successfully complete or return a value.
+Enums define a fixed set of named constants.
 
 ```ts
-function throwError(message: string): never {
-  throw new Error(message);
+enum Role {
+  Admin = "ADMIN",
+  User = "USER",
 }
+
+const currentRole: Role = Role.Admin;
 ```
 
-## 16. Interfaces
+## 13. Type alias
+
+Allows you to create a custom type (alias).
+
+```ts
+type ID = number;
+let userId: ID = 123;
+```
+
+You can also use a type alias for a fixed set of allowed values.
+
+```ts
+type ApiStatus = "idle" | "loading" | "success" | "error";
+
+let requestStatus: ApiStatus = "loading";
+requestStatus = "success";
+```
+
+Type aliases are also useful for reusable function signatures.
+
+```ts
+type PriceFormatter = (price: number, currency: string) => string;
+
+const formatPrice: PriceFormatter = (price, currency) =>
+  `${currency} ${price.toFixed(2)}`;
+```
+
+## 14. Interfaces
 
 A way to define the structure of an object. Specifies the properties and methods an object must have, without providing any implementation.
 
@@ -225,123 +223,155 @@ let user: Person = {
 };
 ```
 
-## 17. Classes
-
-Classes are blueprint for creating objects, providing a way to define properties and methods that an object can have.
+You can extend interfaces to build on shared properties.
 
 ```ts
-class Car {
-  make: string
-  year: number
-  color: string
-
-  constructor(make: string, year: number, color: string) {
-    this.make = make
-    this.year = year
-    this.color = color
-  }
+interface Account {
+  id: string;
+  email: string;
 }
-```
 
-## 18. Const keyword
-
-Declares a constant whose value cannot be reassigned. In TypeScript, a `const` variable is inferred as a **literal type** (the exact value), instead of the broader primitive type.
-
-```ts
-const pi = 3.14
-// type is the literal 3.14, not just 'number'
-
-let radius = 10
-// type is number (since 'let' does not lock the value)
-
-const appName = "TS"
-// type is the literal "TS", not just 'string'
-```
-
-## 19. Project structure
-
-It’s a good practice to organize your TypeScript code into separate files for better readability and maintainability.
-
-- `enums.ts` → Store enumerations.
-- `types.ts` → Store type aliases.
-- `interfaces.ts` → Store interfaces.
-
-This makes your project cleaner and easier to navigate.
-
-## 20. Modules
-
-Modules help developers organize code into reusable, maintainable, and logical units using the **ES6 import/export system**.
-
-| Default export (one thing)                | Named exports (many things)            |
-|-------------------------------------------|----------------------------------------|
-| `export default function add() {}`        | `export function add() {}`             |
-| `import anyName from './module'`          | `import { add, subtract } from './module'` |
-| Can rename freely when importing          | Must use the exact exported name        |
-
-## 21. Components
-
-Define a simple component with a typed return value.
-
-```ts
-function Hello(): JSX.Element {
-  return <h1>Hello, TypeScript!</h1>
+interface AdminAccount extends Account {
+  permissions: string[];
 }
+
+const admin: AdminAccount = {
+  id: "a1",
+  email: "admin@example.com",
+  permissions: ["users:read", "users:write"],
+};
 ```
 
-## 22. Props
-
-Use an interface or type alias to define props.
+Interfaces can also describe function contracts.
 
 ```ts
-type ButtonProps = {
-  label: string
-  onClick: () => void
+interface SearchFn {
+  (query: string): string[];
+}
+
+const searchProducts: SearchFn = (query) =>
+  ["mouse", "monitor"].filter((p) => p.includes(query));
+```
+
+## 15. Generics
+
+Generics let you write reusable code that works with multiple types while preserving type safety.
+
+```ts
+function identity<T>(value: T): T {
+  return value;
+}
+
+const text = identity<string>("hello");
+const num = identity<number>(42);
+```
+
+You can use generics in helper functions that work with arrays.
+
+```ts
+function firstItem<T>(items: T[]): T | undefined {
+  return items[0];
+}
+
+const firstNumber = firstItem<number>([10, 20, 30]);
+const firstWord = firstItem<string>(["one", "two"]);
+```
+
+Generics also work well for reusable response shapes.
+
+```ts
+type ApiResponse<T> = {
+  data: T;
+  success: boolean;
+};
+
+const userResponse: ApiResponse<{ id: number; name: string }> = {
+  data: { id: 1, name: "Lina" },
+  success: true,
+};
+```
+
+## 16. React types
+
+Essential React types from the `react` library in a compact reference table.
+
+| Type                      | Description                                                        | Usage example                                                     |
+| ------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------- |
+| `JSX.Element`             | The return type for React components that render JSX.              | `function Comp(): JSX.Element { return <div/> }`                  |
+| `React.FC`                | Functional component type (adds `children` prop). Use selectively. | `const Comp: React.FC = ({ children }) => <div>{children}</div>`  |
+| `React.ReactNode`         | Any renderable React content (string, element, fragment, etc.).    | `const content: React.ReactNode = "text"`                         |
+| `React.ChangeEvent<T>`    | Event type for form inputs.                                        | `const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {}` |
+| `React.HTMLAttributes<T>` | Props for HTML elements with generic element type.                 | `const btnProps: React.HTMLAttributes<HTMLButtonElement> = {}`    |
+
+These examples show common usage patterns for each type.
+
+## 17. Best Practices
+
+Comparison of three advanced type approaches and when to prefer each.
+
+| Type         | Best for                                                 | Tips                                                                |
+| ------------ | -------------------------------------------------------- | ------------------------------------------------------------------- |
+| `interface`  | Component props and extendable object shapes             | Prefer when you expect to extend/implement types                    |
+| `generics`   | Reusable hooks and components that need type flexibility | Use constrained generics for safer APIs (`K extends keyof T`)       |
+| `type` alias | Unions, function signatures and compact aliases          | Great for unions and mapped types; use where extension isn't needed |
+
+Interfaces are typically the best choice for component props because they are readable and extendable.
+
+```ts
+interface ButtonProps {
+  label: string;
+  onClick?: () => void;
 }
 
 function Button({ label, onClick }: ButtonProps): JSX.Element {
-  return <button onClick={onClick}>{label}</button>
+  return <button onClick={onClick}>{label}</button>;
 }
 ```
 
-## 23. State
-
-Use generics with `useState` to strongly type state values.
+Generics shine in hooks and utilities where the same logic must work across types.
 
 ```ts
-function Counter(): JSX.Element {
-  const [count, setCount] = React.useState<number>(0)
-
-  return (
-    <div>
-      <p>{count}</p>
-      <button onClick={() => setCount(count + 1)}>+</button>
-    </div>
-  )
+function useFetch<T>(url: string): { data: T | null; loading: boolean } {
+  // simplified example
+  return { data: null, loading: true } as any;
 }
+
+const result = useFetch<{ id: number; name: string }>("/api/user");
 ```
 
-## 24. Events
-
-Type events with React’s built-in types.
+Type aliases are concise for unions and reusable function signatures.
 
 ```ts
-function InputBox(): JSX.Element {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
-  }
+type ClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => void;
 
-  return <input type="text" onChange={handleChange} />
-}
+const onClick: ClickHandler = (e) => {
+  console.log(e.currentTarget);
+};
 ```
 
-## 25. Hooks
+## 18. TS Project Files
 
-Type custom hooks with explicit input and output.
+Suggested minimal folder structure and TypeScript-specific files to include in React projects:
 
-```ts
-function useToggle(initial: boolean): [boolean, () => void] {
-  const [value, setValue] = React.useState(initial)
-  const toggle = () => setValue(prev => !prev)
-  return [value, toggle]
-}
+```text
+src/
+  components/
+  hooks/
+  pages/ (Next.js) or routes/
+  types/
+  utils/
+tsconfig.json
+next-env.d.ts (for Next.js projects)
 ```
+
+- `tsconfig.json`: configures the TypeScript compiler options (strictness, module resolution, paths). Read more: https://www.typescriptlang.org/tsconfig
+
+- `next-env.d.ts`: auto-generated in Next.js with TypeScript; ensures Next.js types are available globally. Read more: https://nextjs.org/docs/basic-features/typescript
+
+- `ts-node`: Run TypeScript files directly in Node.js for development scripts and quick local execution. Useful for running small scripts, dev tools, or testing TS files without a build step. Read more: https://typestrong.org/ts-node/
+
+- `@types/node`: Provides the official Node.js type definitions (globals, core modules, and runtime APIs) so TypeScript understands Node environments. Install as a dev dependency when targeting Node and read more: https://www.npmjs.com/package/@types/node
+
+Keep `types/` for shared domain types, `hooks/` for generic typed hooks, and prefer `interface` for prop shapes and `generics` for hook APIs.
+
+---
